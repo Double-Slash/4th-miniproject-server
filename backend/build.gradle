@@ -19,12 +19,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-web' // Spring
+    implementation 'org.springframework.boot:spring-boot-starter-aop' // AOP
+    compileOnly 'org.projectlombok:lombok' // lombok
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+    testImplementation('org.springframework.boot:spring-boot-starter-test') { // Spring Test
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 }
