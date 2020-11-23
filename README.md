@@ -1,4 +1,5 @@
-# 더블슬래쉬 웹앱 대응 서버
-## Spring Boot
-### DB Mysql
+# 더블 슬래쉬 웹앱 Restful API 서버
 
+## Node.js + TypeScript + Express
+
+## DB: Mysql
