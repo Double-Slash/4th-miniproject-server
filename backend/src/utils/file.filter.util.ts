@@ -13,7 +13,7 @@ export const returnUploadFileNameList = (files) => {
   const uploadFileList = [];
   if (files) {
     files.forEach((file) => {
-      uploadFileList.push(file.originalname);
+      uploadFileList.push(file.filename);
     });
   }
   return uploadFileList;

@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   UploadedFiles,
   Logger,
+  Res,
 } from '@nestjs/common';
 import { NoticeService } from './notice.service';
 import { NoticeDto } from '../dto/notice.dto';
@@ -28,6 +29,11 @@ export class NoticeController {
   async getAllNotice() {
     const notices = await this.noticeService.findAll();
     return notices;
+  }
+
+  @Get(':imgpath')
+  seeUploadedFile(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './files' });
   }
 
   @Post('upload')
