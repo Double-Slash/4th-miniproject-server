@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
+import { ValidationPipe } from '@nestjs/common';
 
 // Nest.js Description
 // NestFactory -> Nest Application instance 생성 코어 클래스
@@ -7,6 +9,9 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  // app.enableCors(); // Cors Activated
+  app.useGlobalPipes(new ValidationPipe()); // Validation Pipe
+  app.use(cookieParser()); // Cookie Parser
+  await app.listen(3000); // Port Number 3000
 }
 bootstrap();

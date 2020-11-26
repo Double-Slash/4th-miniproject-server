@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Delete,
+  UsePipes,
   HttpStatus,
   UseInterceptors,
   UploadedFiles,
@@ -18,9 +19,9 @@ import {
   editFileName,
   returnUploadFileNameList,
 } from '../utils/file.filter.util';
-import { returnPaginationedList } from '../utils/pagination.util';
 import { AnyFilesInterceptor } from '@nestjs/platform-express'; // Multer Module
 import { diskStorage } from 'multer'; // Multer Module
+import { ValidationPipe } from '@nestjs/common'; // Validation Pipe
 
 /* http://"IP":3000/api/notice/... */
 @Controller('api/notice')
@@ -30,33 +31,31 @@ export class NoticeController {
   /* api/notice/all?index=0 */
   @Get('all')
   async getAllNotice(@Param('index') index, @Res() res) {
-    const notices = await this.noticeService.findAll();
-    const pagedNotices = returnPaginationedList(notices, index);
-    if (pagedNotices.length == 0) {
+    const notices = await this.noticeService.findAll(index);
+    if (notices.length == 0) {
       res
         .status(HttpStatus.NO_CONTENT)
-        .json({ message: 'Notice List does not exist', body: pagedNotices });
+        .json({ message: 'Notice List does not exist', body: notices });
     } else {
       res
         .status(HttpStatus.OK)
-        .json({ message: 'Notice List exists', body: pagedNotices });
+        .json({ message: 'Notice List exists', body: notices });
     }
   }
 
   /* api/notice/action?index=0 */
   @Get('action')
   async getActionNotice(@Param('index') index, @Res() res) {
-    const notices = await this.noticeService.findAction();
-    const pagedNotices = returnPaginationedList(notices, index);
-    if (pagedNotices.length == 0) {
+    const notices = await this.noticeService.findAction(index);
+    if (notices.length == 0) {
       res.status(HttpStatus.NO_CONTENT).json({
         message: 'Action Notice List does not exist',
-        body: pagedNotices,
+        body: notices,
       });
     } else {
       res
         .status(HttpStatus.OK)
-        .json({ message: 'Action Notice List exists', body: pagedNotices });
+        .json({ message: 'Action Notice List exists', body: notices });
     }
   }
 
@@ -68,6 +67,8 @@ export class NoticeController {
 
   /* api/notice/upload */
   @Post('upload')
+  @UsePipes(new ValidationPipe({ skipMissingProperties: true }))
+  /* error handling with class-validation */
   @UseInterceptors(
     AnyFilesInterceptor({
       storage: diskStorage({

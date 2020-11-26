@@ -3,21 +3,22 @@ import { Document } from 'mongoose';
 
 export type NoticeDocument = Notice & Document;
 
+/* Notice DB */
 @Schema()
 export class Notice {
   @Prop()
-  id: number;
+  id: string;
 
-  @Prop()
+  @Prop({ required: true })
   title: string;
 
-  @Prop()
+  @Prop({ required: true })
   timestamp: string;
 
-  @Prop()
-  desc: string;
+  @Prop({ required: true })
+  description: string;
 
-  @Prop()
+  @Prop({ required: true })
   type: number;
 
   @Prop()

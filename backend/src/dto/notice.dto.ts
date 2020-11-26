@@ -1,8 +1,20 @@
+import { IsNotEmpty } from 'class-validator';
+
 export class NoticeDto {
-  id: number;
+  @IsNotEmpty()
+  id: string;
+
+  @IsNotEmpty()
   title: string;
+
+  @IsNotEmpty()
   timestamp: string;
-  desc: string;
+
+  @IsNotEmpty()
+  description: string;
+
+  @IsNotEmpty()
   type: number;
+
   uploadFileList: Array<string>;
 }
