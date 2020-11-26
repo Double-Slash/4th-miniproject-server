@@ -18,24 +18,55 @@ import {
   editFileName,
   returnUploadFileNameList,
 } from '../utils/file.filter.util';
+import { returnPaginationedList } from '../utils/pagination.util';
 import { AnyFilesInterceptor } from '@nestjs/platform-express'; // Multer Module
 import { diskStorage } from 'multer'; // Multer Module
 
-@Controller('notice')
+/* http://"IP":3000/api/notice/... */
+@Controller('api/notice')
 export class NoticeController {
   constructor(private readonly noticeService: NoticeService) {}
 
+  /* api/notice/all?index=0 */
   @Get('all')
-  async getAllNotice() {
+  async getAllNotice(@Param('index') index, @Res() res) {
     const notices = await this.noticeService.findAll();
-    return notices;
+    const pagedNotices = returnPaginationedList(notices, index);
+    if (pagedNotices.length == 0) {
+      res
+        .status(HttpStatus.NO_CONTENT)
+        .json({ message: 'Notice List does not exist', body: pagedNotices });
+    } else {
+      res
+        .status(HttpStatus.OK)
+        .json({ message: 'Notice List exists', body: pagedNotices });
+    }
   }
 
+  /* api/notice/action?index=0 */
+  @Get('action')
+  async getActionNotice(@Param('index') index, @Res() res) {
+    const notices = await this.noticeService.findAction();
+    const pagedNotices = returnPaginationedList(notices, index);
+    if (pagedNotices.length == 0) {
+      res.status(HttpStatus.NO_CONTENT).json({
+        message: 'Action Notice List does not exist',
+        body: pagedNotices,
+      });
+    } else {
+      res
+        .status(HttpStatus.OK)
+        .json({ message: 'Action Notice List exists', body: pagedNotices });
+    }
+  }
+
+  /* api/notice/"imgpath" */
   @Get(':imgpath')
   seeUploadedFile(@Param('imgpath') image, @Res() res) {
-    return res.sendFile(image, { root: './files' });
+    return res.status(HttpStatus.OK).sendFile(image, { root: './files' });
   }
 
+  /* api/notice/upload */
   @Post('upload')
   @UseInterceptors(
     AnyFilesInterceptor({
@@ -45,14 +76,16 @@ export class NoticeController {
       }),
     }),
   )
-  async uploadNotice(@Body() noticeDto: NoticeDto, @UploadedFiles() files) {
+  async uploadNotice(
+    @Body() noticeDto: NoticeDto,
+    @UploadedFiles() files,
+    @Res() res,
+  ) {
     Logger.log(returnUploadFileNameList(files));
     noticeDto.uploadFileList = returnUploadFileNameList(files);
-    const notice = await this.noticeService.create(noticeDto);
-    return {
-      statusCode: HttpStatus.OK,
-      message: 'Notice updated successfully',
-      notice: notice,
-    };
+    await this.noticeService.create(noticeDto);
+    res
+      .status(HttpStatus.CREATED)
+      .json({ message: 'Notice updated successfully' });
   }
 }

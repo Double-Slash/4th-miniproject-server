@@ -1,5 +1,5 @@
 import { extname } from 'path';
-
+/* File Helper Functiosn */
 export const editFileName = (req, file, callback) => {
   const fileExtName = extname(file.originalname);
   const randomName = Array(4)

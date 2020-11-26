@@ -18,4 +18,8 @@ export class NoticeService {
   async findAll(): Promise<Notice[]> {
     return this.noticeModel.find().exec();
   }
+
+  async findAction(): Promise<Notice[]> {
+    return this.noticeModel.find({ type: 2 }).exec();
+  }
 }
