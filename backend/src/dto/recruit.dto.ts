@@ -2,7 +2,7 @@ import { IsNotEmpty } from 'class-validator';
 
 /* Recruit DTO */
 /*
- *  DB 구조
+ *  DTO 구조
  *  이름
  *  학과
  *  학년

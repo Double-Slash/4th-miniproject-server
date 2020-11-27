@@ -31,7 +31,7 @@ export class RecruitController {
     if (recruiteStatus == null) {
       res.status(HttpStatus.NO_CONTENT).json({
         message: 'Does not exist this Person',
-        body: recruiteStatus.isAccept,
+        body: -1,
       });
     } else {
       res.status(HttpStatus.OK).json({

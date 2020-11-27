@@ -6,9 +6,6 @@ export type NoticeDocument = Notice & Document;
 /* Notice DB */
 @Schema()
 export class Notice {
-  @Prop()
-  id: string;
-
   @Prop({ required: true })
   title: string;
 

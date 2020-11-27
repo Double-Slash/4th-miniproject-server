@@ -3,9 +3,6 @@ import { IsNotEmpty } from 'class-validator';
 /* Notice DTO */
 export class NoticeDto {
   @IsNotEmpty()
-  id: string;
-
-  @IsNotEmpty()
   title: string;
 
   @IsNotEmpty()

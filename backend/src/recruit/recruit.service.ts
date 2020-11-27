@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Recruit, RecruitDocument } from '../schemas/recruit.schema';
 import { RecruitDto } from '../dto/recruit.dto';
 
+/* Recruit DB Service */
 @Injectable()
 export class RecruitService {
   constructor(
@@ -23,7 +24,7 @@ export class RecruitService {
   }
 
   /* Only find the One of the Recruit Person */
-  async findOne(name, phoneNumber): Promise<Recruit> {
+  async findOne(name: string, phoneNumber: number): Promise<Recruit> {
     return this.recruitModel
       .findOne({ name: name, phoneNumber: phoneNumber })
       .exec();
