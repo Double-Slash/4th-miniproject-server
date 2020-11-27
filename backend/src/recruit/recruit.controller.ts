@@ -46,7 +46,7 @@ export class RecruitController {
   @Get('/all')
   async getAllRecruit(@Res() res) {
     const recruiteStatusList = await this.recruitService.findAll();
-    if (recruiteStatusList.length == null) {
+    if (recruiteStatusList.length == 0) {
       res
         .status(HttpStatus.NO_CONTENT)
         .json({ message: 'Nobody recruit', body: recruiteStatusList });
