@@ -14,17 +14,29 @@ import {
 import { ValidationPipe } from '@nestjs/common'; // Validation Pipe
 import { RecruitService } from './recruit.service';
 import { RecruitDto } from '../dto/recruit.dto';
+import {
+  ApiTags,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiNoContentResponse,
+} from '@nestjs/swagger'; // Swagger UI
 
 /* http://"IP":3000/api/notice/... */
+@ApiTags('api/recruit')
 @Controller('api/recruit')
 export class RecruitController {
   constructor(private readonly recruitService: RecruitService) {}
 
   /* api/recruit/status?name=""&phone="" */
   @Get('/status')
+  @ApiNoContentResponse({
+    description: 'Does not exist this Person',
+    type: Number,
+  })
+  @ApiOkResponse({ description: 'The person in recruit exists', type: Number })
   async getOneOfTheRecruit(
-    @Param('name') name,
-    @Param('phoneNumber') phoneNumber,
+    @Param('name') name: string,
+    @Param('phoneNumber') phoneNumber: number,
     @Res() res,
   ) {
     const recruiteStatus = await this.recruitService.findOne(name, phoneNumber);
@@ -44,6 +56,8 @@ export class RecruitController {
   /* api/recruit/all */
   /* MASTER MODE USED*/
   @Get('/all')
+  @ApiNoContentResponse({ description: 'Nobody recruit', type: [RecruitDto] })
+  @ApiOkResponse({ description: 'Recruit exist', type: [RecruitDto] })
   async getAllRecruit(@Res() res) {
     const recruiteStatusList = await this.recruitService.findAll();
     if (recruiteStatusList.length == 0) {
@@ -59,6 +73,7 @@ export class RecruitController {
 
   /* api/recruit/upload */
   @Post('/upload')
+  @ApiCreatedResponse({ description: 'Recruit updated successfully' })
   @UsePipes(new ValidationPipe({ skipMissingProperties: true }))
   async uploadRecruit(@Body() recruitDto: RecruitDto, @Res() res) {
     recruitDto.isAccept = 0; // Default Value

@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger'; // Swagger UI
 
 /* Recruit DTO */
 /*
@@ -19,50 +20,66 @@ import { IsNotEmpty } from 'class-validator';
  *  한마디
  */
 export class RecruitDto {
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   college: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   name: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   department: string;
 
+  @ApiProperty({ type: Number })
   @IsNotEmpty()
   schoolYear: number;
 
+  @ApiProperty({ type: Number })
   @IsNotEmpty()
   age: number;
 
+  @ApiProperty({ type: Number })
   @IsNotEmpty()
   sex: number;
 
+  @ApiProperty({ type: Number })
   @IsNotEmpty()
   phoneNumber: number;
 
+  @ApiProperty({ type: Number })
   @IsNotEmpty()
   fieldSupport: number;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   reasonForRecruit: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   motivationForRecruit: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   detailActive: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   detectPath: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   project: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   friend: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   ambition: string;
 
+  @ApiProperty({ type: Number })
   isAccept: number;
 }

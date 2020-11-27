@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger'; // Swagger UI
 
 /* User DTO */
 /*
@@ -12,21 +13,27 @@ import { IsNotEmpty } from 'class-validator';
  *  접근권한 (0-> 일반, 1-> 회원, 2-> 관리자)
  */
 export class UserDto {
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   id: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   password: string;
 
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   name: string;
 
+  @ApiProperty({ type: Number })
   @IsNotEmpty()
   age: number;
 
+  @ApiProperty({ type: Number })
   @IsNotEmpty()
   fieldSupport: number;
 
+  @ApiProperty({ type: Number })
   @IsNotEmpty()
   type: number;
 }
