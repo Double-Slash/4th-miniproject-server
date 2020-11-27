@@ -45,15 +45,15 @@ export class RecruitController {
   /* MASTER MODE USED*/
   @Get('/all')
   async getAllRecruit(@Res() res) {
-    const recruiteStatus = await this.recruitService.findAll();
-    if (recruiteStatus == null) {
+    const recruiteStatusList = await this.recruitService.findAll();
+    if (recruiteStatusList.length == null) {
       res
         .status(HttpStatus.NO_CONTENT)
-        .json({ message: 'Nobody recruit', body: recruiteStatus });
+        .json({ message: 'Nobody recruit', body: recruiteStatusList });
     } else {
       res
         .status(HttpStatus.OK)
-        .json({ message: 'Recruit exist', body: recruiteStatus });
+        .json({ message: 'Recruit exist', body: recruiteStatusList });
     }
   }
 
