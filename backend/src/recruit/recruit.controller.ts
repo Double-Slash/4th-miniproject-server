@@ -16,7 +16,7 @@ import { RecruitService } from './recruit.service';
 import { RecruitDto } from '../dto/recruit.dto';
 
 /* http://"IP":3000/api/notice/... */
-@Controller('recruit')
+@Controller('api/recruit')
 export class RecruitController {
   constructor(private readonly recruitService: RecruitService) {}
 
