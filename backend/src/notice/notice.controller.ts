@@ -82,7 +82,6 @@ export class NoticeController {
     @UploadedFiles() files,
     @Res() res,
   ) {
-    Logger.log(returnUploadFileNameList(files));
     noticeDto.uploadFileList = returnUploadFileNameList(files);
     await this.noticeService.create(noticeDto);
     res
