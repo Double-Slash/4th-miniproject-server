@@ -20,5 +20,5 @@ export class NoticeDto {
   type: number;
 
   @ApiProperty({ type: [String] })
-  uploadFileList: Array<string>;
+  uploadFileList: string[];
 }

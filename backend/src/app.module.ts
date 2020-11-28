@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose'; // Connect Mongoose DB
 import { NoticeModule } from './notice/notice.module'; // Notice Module
 import { RecruitModule } from './recruit/recruit.module'; // Recruit Module
 import { UserModule } from './user/user.module'; // User Module
+import { ProjectModule } from './project/project.module'; // Project Module
 
 /* imports the Modules And Connected the Controllers */
 @Module({
@@ -11,6 +12,7 @@ import { UserModule } from './user/user.module'; // User Module
     NoticeModule,
     RecruitModule,
     UserModule,
+    ProjectModule,
   ],
 })
 export class AppModule {}

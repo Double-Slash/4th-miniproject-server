@@ -20,7 +20,7 @@ import {
   editFileName,
   returnUploadFileNameList,
 } from '../utils/file.filter.util';
-import { AnyFilesInterceptor } from '@nestjs/platform-express'; // Multer Module
+import { FilesInterceptor } from '@nestjs/platform-express'; // Multer Module
 import { diskStorage } from 'multer'; // Multer Module
 import { ValidationPipe } from '@nestjs/common'; // Validation Pipe
 import {
@@ -97,7 +97,7 @@ export class NoticeController {
   @UsePipes(new ValidationPipe({ skipMissingProperties: true }))
   /* error handling with class-validation */
   @UseInterceptors(
-    AnyFilesInterceptor({
+    FilesInterceptor('files', 20, {
       storage: diskStorage({
         destination: './files',
         filename: editFileName,
@@ -106,7 +106,7 @@ export class NoticeController {
   )
   async uploadNotice(
     @Body() noticeDto: NoticeDto,
-    @UploadedFiles() files: FilesDto,
+    @UploadedFiles() files,
     @Res() res,
   ) {
     noticeDto.uploadFileList = returnUploadFileNameList(files);
