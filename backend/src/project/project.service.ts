@@ -12,8 +12,8 @@ export class ProjectService {
 
   /* Update the Project */
   async create(projectDto: ProjectDto): Promise<Project> {
-    const createdNotice = new this.projectModel(projectDto);
-    return createdNotice.save();
+    const createdProject = new this.projectModel(projectDto);
+    return createdProject.save();
   }
 
   /* Find all of the Project */
